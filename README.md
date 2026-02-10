@@ -217,7 +217,7 @@ function spawnHeart() {
   heart.classList.add("heart");
 
   // Tamaño aleatorio
-  const size = 10 + Math.random() * 18;
+  const size = 20 + Math.random() * 35;
   heart.style.width = `${size}px`;
   heart.style.height = `${size}px`;
 
