@@ -1,11 +1,11 @@
 # Feliz-San-Valentin-Amor
-Un Detallito de tu novio, con mucho amor. 
+## Un Detallito de tu novio, con mucho amor. 
 Porque siempre pienso en cómo hacerte sentir especial.
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>¿Melanny Quieres ser mi San Valentín?</title>
+  <title>¿Melanny quieres ser mi San Valentín?</title>
   <style>
     :root{
       --bg1:#ff3b7a;
