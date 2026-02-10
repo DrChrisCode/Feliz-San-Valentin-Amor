@@ -1,6 +1,3 @@
-# Feliz-San-Valentin-Amor
-## Un Detallito de tu novio, con mucho amor. 
-Porque siempre pienso en cómo hacerte sentir especial.
 <html lang="es">
 <head>
   <meta charset="utf-8" />
@@ -12,8 +9,6 @@ Porque siempre pienso en cómo hacerte sentir especial.
       --bg2:#7c3aed;
       --card:#ffffffcc;
       --text:#1f2937;
-      --yes:#16a34a;
-      --no:#ef4444;
     }
     *{box-sizing:border-box}
     body{
@@ -49,7 +44,12 @@ Porque siempre pienso en cómo hacerte sentir especial.
       margin:0 0 18px;
       font-size: 16px;
       line-height:1.4;
-      opacity:.9;
+      opacity:.92;
+    }
+    .sub{
+      margin: 0 0 14px;
+      font-size: 14px;
+      opacity: .85;
     }
     .names{
       font-weight:700;
@@ -73,6 +73,7 @@ Porque siempre pienso en cómo hacerte sentir especial.
       cursor:pointer;
       transition: transform .12s ease, filter .12s ease;
       box-shadow: 0 10px 22px rgba(0,0,0,.18);
+      user-select:none;
     }
     button:active{ transform: scale(.98); }
     .yes{ background: linear-gradient(135deg, #22c55e, #16a34a); color:white; }
@@ -80,7 +81,7 @@ Porque siempre pienso en cómo hacerte sentir especial.
     .footer{
       margin-top:16px;
       font-size:12px;
-      opacity:.7;
+      opacity:.75;
     }
     .badge{
       display:inline-flex;
@@ -98,7 +99,8 @@ Porque siempre pienso en cómo hacerte sentir especial.
       background: #ff3b7a;
       box-shadow: 0 0 14px #ff3b7a;
     }
-    /* corazones */
+
+    /* Corazones */
     .heart{
       position:absolute;
       width:14px;height:14px;
@@ -153,26 +155,35 @@ Porque siempre pienso en cómo hacerte sentir especial.
 <body>
   <div class="card" id="card">
     <div class="badge"><span></span> Invitación especial</div>
+
+    <div class="sub">
+      <strong>Feliz San Valentín, amor.</strong><br>
+      Un detallito de tu novio, con mucho amor. Porque siempre pienso en cómo hacerte sentir especial.
+    </div>
+
     <h1>¿Quieres ser mi San Valentín? 💘</h1>
+
     <p>
-      <span class="names">Chris</span> ➜ <span class="names">Mi Muñeca Hermosa</span><br>
-      Prometo risas, detallitos y el mejor San Valentín de tu Vida.
+      <span class="names">Chris</span> ➜ <span class="names">Mi muñeca hermosa</span><br>
+      Prometo risas, detallitos y el mejor San Valentín de tu vida.
     </p>
 
     <div class="btns" id="btns">
       <button class="yes" id="yesBtn">Sí 💚</button>
-      <button class="no" id="noBtn">Obvio Sí 🙃</button>
+      <button class="no" id="noBtn">Obvio sí 🙃</button>
     </div>
 
-    <div class="footer">Nota: De todas maneras no tienes opción, ya eres mía.</div>
+    <div class="footer">Nota: de todas maneras no tienes opción… ya eres mía 😌</div>
   </div>
 
-  <div class="modal" id="modal">
-    <div class="modal-box">
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-label="Confirmación">
       <div class="big">🥹💖</div>
       <h2>¡Sabía que dirías que sí!</h2>
-      <p>Ahora solo falta escoger: ¿cena, helado o ambos? 😄
-      Pero de que la pasamos Genial, eso seguro</p>
+      <p>
+        Ahora solo falta escoger: ¿cena, helado o ambos? 😄<br>
+        Pero que la pasamos genial, eso seguro.
+      </p>
       <button class="close" id="closeBtn">Cerrar</button>
     </div>
   </div>
@@ -181,80 +192,73 @@ Porque siempre pienso en cómo hacerte sentir especial.
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const btns = document.getElementById("btns");
-    const card = document.getElementById("card");
     const modal = document.getElementById("modal");
     const closeBtn = document.getElementById("closeBtn");
 
     // Botón "No" se escapa
-    function moveNo(){
+    function moveNo() {
       const rect = btns.getBoundingClientRect();
       const b = noBtn.getBoundingClientRect();
+
       const maxX = rect.width - b.width;
       const maxY = rect.height - b.height;
-      const x = Math.max(0, Math.min(maxX, Math.random()*maxX));
-      const y = Math.max(0, Math.min(maxY, Math.random()*maxY));
+
+      const x = Math.max(0, Math.min(maxX, Math.random() * maxX));
+      const y = Math.max(0, Math.min(maxY, Math.random() * maxY));
+
       noBtn.style.position = "absolute";
-      noBtn.style.left = x + "px";
-      noBtn.style.top  = y + "px";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
     }
+
     noBtn.addEventListener("mouseenter", moveNo);
     noBtn.addEventListener("click", moveNo);
 
     // Aceptar
     yesBtn.addEventListener("click", () => {
       modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
       confettiHearts(40);
     });
 
-    closeBtn.addEventListener("click", () => modal.classList.remove("open"));
-    modal.addEventListener("click", (e) => {
-      if(e.target === modal) modal.classList.remove("open");
+    closeBtn.addEventListener("click", () => {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
     });
 
-// 💖 Corazones flotando
-function spawnHeart() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-
-  // Tamaño aleatorio
-  const size = 20 + Math.random() * 35;
-  heart.style.width = `${size}px`;
-  heart.style.height = `${size}px`;
-
-  // Posición horizontal aleatoria
-  heart.style.left = `${Math.random() * 100}vw`;
-  heart.style.bottom = "-20px";
-
-  // Duración de animación
-  const duration = 4 + Math.random() * 4;
-  heart.style.animationDuration = `${duration}s`;
-
-  // Colores posibles
-  const colors = [
-    "#ff2d55",
-    "#ff6b9a",
-    "#ffd1e3",
-    "#c084fc",
-    "#fb7185"
-  ];
-  heart.style.background = colors[Math.floor(Math.random() * colors.length)];
-
-  document.body.appendChild(heart);
-
-  // Eliminar corazón al terminar la animación
-  setTimeout(() => {
-    heart.remove();
-  }, duration * 1000);
-}
-
-// Generar corazones constantemente
-setInterval(spawnHeart, 350);
-
-    // Explosión extra al dar "sí"
-    function confettiHearts(n){
-      for(let i=0;i<n;i++){
-        setTimeout(spawnHeart, i*40);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
       }
+    });
+
+    // 💖 Corazones flotando
+    function spawnHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+
+      const size = 20 + Math.random() * 35;
+      heart.style.width = `${size}px`;
+      heart.style.height = `${size}px`;
+
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.bottom = "-20px";
+
+      const duration = 4 + Math.random() * 4;
+      heart.style.animationDuration = `${duration}s`;
+
+      const colors = ["#ff2d55", "#ff6b9a", "#ffd1e3", "#c084fc", "#fb7185"];
+      heart.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), duration * 1000);
+    }
+
+    setInterval(spawnHeart, 350);
+
+    function confettiHearts(n) {
+      for (let i = 0; i < n; i++) setTimeout(spawnHeart, i * 40);
     }
   </script>
 </body>
